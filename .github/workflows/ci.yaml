@@ -15,7 +15,7 @@ on:
 
 env:
   # Common versions
-  GO_VERSION: '1.23'
+  GO_VERSION: '1.23.1'
   GOLANGCI_VERSION: 'v1.62.0'
   DOCKER_BUILDX_VERSION: 'v0.23.0'
 
@@ -116,6 +116,9 @@ jobs:
 
       - name: Setup the Crossplane CLI
         run: "curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh"
+
+      - name: remove examples from tree
+        run: rm -rf examples/
 
       - name: Build Package
         run: ./crossplane xpkg build --package-file=${{ matrix.arch }}.xpkg --package-root=package/ --embed-runtime-image-tarball=runtime-${{ matrix.arch }}.tar
